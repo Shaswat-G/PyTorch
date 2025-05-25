@@ -125,6 +125,103 @@ CUDA (Compute Unified Device Architecture) is NVIDIA's parallel computing platfo
 
 ---
 
+## Tensor Operations: Matrix Multiplication and Advanced Operations
+
+### Matrix Multiplication
+
+- **Standard Matrix Multiplication (torch.matmul):**
+
+  - Follows standard linear algebra rules
+  - Handles various dimensional inputs (vectors, matrices, batched tensors)
+  - Example: For matrix-vector multiplication, if A is (m×n) and x is (n×1), result is (m×1)
+
+- **Batch Matrix Multiplication (torch.bmm):**
+
+  - Designed specifically for 3D tensors (batched matrices)
+  - Shape requirements:
+    - Input 1: `(batch_size, n, m)`
+    - Input 2: `(batch_size, m, p)`
+    - Output: `(batch_size, n, p)`
+  - Common in attention mechanisms, batched linear operations
+  - Example:
+
+    ```python
+    x = torch.randn(8, 5, 3)  # 8 matrices of shape (5,3)
+    y = torch.randn(8, 3, 10) # 8 matrices of shape (3,10)
+    z = torch.bmm(x, y)       # 8 matrices of shape (5,10)
+    ```
+
+### Element-wise Operations
+
+- Operate on corresponding elements independently
+- Include: addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`)
+- Support broadcasting for tensors of different shapes
+- Common use: feature transformations, custom activations
+
+### Reduction Operations
+
+- **Spatial Reductions:**
+
+  - `mean(dim=(2,3))` - Average over height and width (common in CNNs)
+  - `max(dim=(2,3))` - Max pooling over spatial dimensions
+
+- **Batch Reductions:**
+
+  - `mean(dim=0)` - Average across batch (used in loss functions)
+  - `sum(dim=0)` - Sum across batch (aggregating gradients)
+
+- **Global Reductions:**
+  - `mean()`, `sum()`, `max()`, `min()`, `std()`, `var()` - Reduce to scalar
+  - Essential for metrics, loss values
+
+### Statistical Operations
+
+- **Classification Tools:**
+
+  - `argmax(dim=1)` - Convert logits to predicted class indices
+  - `softmax(dim=1)` - Convert logits to probability distribution
+
+- **Distance Measures:**
+  - RMSE: `torch.sqrt(torch.mean((x - y) ** 2))`
+  - L2 norm: `torch.norm(x, p=2, dim=1)`
+  - Used in regression tasks, embeddings, regularization
+
+### Value Manipulation
+
+- **Clamping/Clipping:**
+
+  - `torch.clamp(x, min=-1.0, max=1.0)` - Restrict values to range
+  - Applications: gradient clipping, activation bounding
+
+- **Normalization:**
+  - Batch normalization: `(x - mean) / sqrt(var + eps)`
+  - Layer normalization, instance normalization
+  - Critical for stable training of deep networks
+
+### Conditional Operations
+
+- **Selective Processing:**
+  - `torch.where(condition, x, y)` - Choose elements based on condition
+  - Used in: ReLU implementation, masking operations, custom losses
+
+### Advanced Tensor Operations
+
+- **Memory-Efficient Operations:**
+
+  - In-place operations (`add_`, `mul_`) modify tensors directly
+  - Careful use with autograd to avoid computational graph issues
+
+- **Mixed Precision:**
+
+  - Using lower precision (fp16) when possible for faster computation
+  - Maintaining higher precision (fp32) for critical operations
+
+- **Quantization:**
+  - Reducing precision (int8/int4) for inference efficiency
+  - Applied through rounding operations and scaling factors
+
+---
+
 ## Advanced Tidbits & Tangents
 
 - **Memory Sharing:** Tensors created from NumPy arrays share memory; use `.clone()` to avoid side effects.
@@ -153,4 +250,3 @@ CUDA (Compute Unified Device Architecture) is NVIDIA's parallel computing platfo
 - [Deep Learning Book (Goodfellow et al.)](https://www.deeplearningbook.org/)
 
 ---
-
