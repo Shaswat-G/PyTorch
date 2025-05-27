@@ -1,4 +1,4 @@
-We want our data to be separated from model training for better organization, reusabliilty and modularity - we can edit and write processing scripts, change datasources columns etc without having to change the model code.
+We want our data to be separated from model training for better organization, reusability and modularity - we can edit and write processing scripts, change data sources columns etc without having to change the model code.
 
 We have two data primitives:
 1. torch.utils.data.Dataset - an abstract class representing a dataset. It is used to define how to access and process the data. It pre-loads datasets and organizes them into samples and labels. This is map style access, meaning that it allows you to access the data by index. It is used to define how to load and process the data, and it can be used to create custom datasets by subclassing it. Required methods are:
