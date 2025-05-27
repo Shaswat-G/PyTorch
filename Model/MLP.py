@@ -172,7 +172,7 @@ def compare_models():
     ]:
         output = model(x)
         num_params = sum(p.numel() for p in model.parameters())
-        layer_1_params = model.state_dict().get("layers.0.weight", None)
+        layer_1_params = model.get_first_layer_params()
         print(
             f"{name:10} - Output: {output.shape}, Parameters: {num_params:,}, Layer 1 Params: {layer_1_params}"
         )
