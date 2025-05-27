@@ -1,11 +1,13 @@
 import torch
 from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
 import os
+import logging
 from PIL import Image
 from typing import List, Tuple
 from torchvision import transforms
 from collections import Counter
-
+# Configure logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 class WildlifeDataset(Dataset):
     def __init__(self, root_dir: str, transform=None):
@@ -13,8 +15,8 @@ class WildlifeDataset(Dataset):
         self.transform = transform
         self.image_paths, self.labels = self._get_paths_labels()
         self.map_label = {label: idx for idx, label in enumerate(sorted(list(set(self.labels))))}
-        print(f"Found {len(self.image_paths)} images across {len(self.map_label)} classes")
-        print(f"Classes: {list(self.map_label.keys())}")
+        logging.info(f"Found {len(self.image_paths)} images across {len(self.map_label)} classes")
+        logging.info(f"Classes: {list(self.map_label.keys())}")
 
     def _get_paths_labels(
         self, valid_ext={".jpg", ".jpeg", ".png", ".bmp", ".gif"}
