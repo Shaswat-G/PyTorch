@@ -83,15 +83,9 @@ def visualize_loss_landscape():
     y_true = torch.tensor([2.0, 4.0, 6.0])  # y = 2x
 
     # Range of weight values to test
-    w_values = np.linspace(0, 4, 100)
-    losses = []
-
-    for w in w_values:
-        w_tensor = torch.tensor(w)
-        y_pred = w_tensor * x
-        loss = manual_mse_loss(y_pred, y_true)
-        losses.append(loss.item())
-
+    w_values = torch.linspace(0, 4, 100)  # Convert to PyTorch tensor
+    y_pred = w_values.unsqueeze(1) * x  # Compute predictions for all weights using broadcasting
+    losses = manual_mse_loss(y_pred, y_true).detach().numpy()  # Vectorized loss computation
     # Plot
     plt.figure(figsize=(10, 6))
     plt.plot(w_values, losses, "b-", linewidth=2)
