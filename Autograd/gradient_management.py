@@ -281,13 +281,11 @@ print("\n=== DEBUGGING GRADIENTS ===")
 def check_gradients(model, max_norm_threshold=10.0):
     """Utility function to debug gradient issues"""
     total_norm = 0
-    param_count = 0
 
     for name, param in model.named_parameters():
         if param.grad is not None:
             param_norm = param.grad.data.norm(2)
             total_norm += param_norm.item() ** 2
-            param_count += 1
 
             if param_norm > max_norm_threshold:
                 print(f"WARNING: Large gradient in {name}: {param_norm:.4f}")
