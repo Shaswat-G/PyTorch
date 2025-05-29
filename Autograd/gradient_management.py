@@ -30,8 +30,9 @@ print("\n=== COMPARING DIFFERENT OPTIMIZERS ===")
 def optimize_with(optimizer_class, lr, num_steps=50, **kwargs):
     """Test different optimizers on the same problem"""
     model_copy = SimpleModel()
-    model_copy.w1.data = model.w1.data.clone()
-    model_copy.w2.data = model.w2.data.clone()
+    with torch.no_grad():
+        model_copy.w1.copy_(model.w1)
+        model_copy.w2.copy_(model.w2)
 
     optimizer = optimizer_class(model_copy.parameters(), lr=lr, **kwargs)
 
