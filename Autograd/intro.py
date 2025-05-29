@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 
 print("=== PART 1: Understanding Tensors ===")
 
