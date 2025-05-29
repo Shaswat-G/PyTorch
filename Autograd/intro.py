@@ -53,6 +53,7 @@ loss.backward()
 print(f"Gradient of loss w.r.t. weight: {weight.grad}")
 print("This gradient tells us how to update the weight to reduce loss!")
 
+weight.grad.zero_()  # Reset the gradient before the second backward pass
 loss.backward()
 print(f"Gradient of loss w.r.t. weight AGAIN: {weight.grad}")
 
