@@ -1,5 +1,3 @@
-Welcome to PyTorch! I'm excited to help you build a strong foundation in deep learning and PyTorch's Model class. Let's start from the very beginning and build your understanding systematically.
-
 ## Starting Point: Understanding Neural Networks Conceptually
 
 Before we dive into PyTorch code, let's make sure we're on the same page conceptually. A neural network is essentially a function that learns to map inputs to outputs through examples.
